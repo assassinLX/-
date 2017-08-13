@@ -1,0 +1,107 @@
+//
+//  main.c
+//  归并排序
+//
+//  Created by assassin on 2017/7/1.
+//  Copyright © 2017年 assassin. All rights reserved.
+//
+
+#include <stdio.h>
+#include<stdlib.h>
+ 
+typedef int  RecType;
+
+void MergeSort(RecType R[] , int low ,int height);
+void Merge(RecType * R,int low ,int m,int Height);
+
+int main(int argc, const char * argv[]) {
+    printf("before merge sort:");
+    int a[7] = {49,38,65,97,76,13,27};
+    int low = 0;
+    int height = 6;
+    
+    printf("before merge sort:");
+    
+    for (int i = 0; i <= height; i++) {
+        printf("%d ,",a[i]);
+    }
+    
+      MergeSort(a, low, height);
+    
+    printf("After merge sort: ");
+    
+    for (int i = low; i < height; i++) {
+        printf("%d ,",a[i]);
+    }
+    printf("/n");
+    return 0;
+}
+
+
+void Merge(RecType * R,int low ,int m,int Height){
+    int i = low;
+    int j = m+1;
+    int p=0;
+    
+    
+    RecType * R1;
+    R1 = (RecType * )malloc((Height - low +1)*sizeof(RecType));
+    
+    
+    if(!R1){
+        return;
+    }
+    while (i<=m && j <= Height) {
+        R1[p++] = (R[i] <= R[j])?R[i++]:R[j++];
+    }
+    
+    
+    while (j <= Height) {
+        R1 [p++] = R[j++];
+    }
+    
+    for(p = 0 , i=low; i<= Height;p++,i++){
+        R[i] = R1[p];
+    }
+    
+}
+
+
+void MergeSort(RecType R[] , int low ,int height){
+    int mid;
+    if(low < height){
+        mid = (low + height)/2;
+        MergeSort(R, low, mid);
+        MergeSort(R, mid +1 , height);
+        Merge(R, low, mid, height);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
